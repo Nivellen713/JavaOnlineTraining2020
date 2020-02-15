@@ -1,0 +1,28 @@
+
+import java.util.Scanner;
+import java.util.Random;
+
+public class Main {
+    public static void main(String[] args) {
+        // 3.Вывести заданное количество случайных чисел с переходом и без перехода на новую строку.
+        Scanner scanner = new Scanner(System.in);
+        Random random = new Random();
+        int amount;
+
+	//спрашиваем количество случайных чисел и генерируем массив соответствующего размера
+        System.out.print("Please print amount of generated random numbers: ");
+        amount = scanner.nextInt();
+        int[] randomNumbers = new int[amount];
+	//генерируем случайные числа и тут же выводим их в столбец
+        System.out.println("\n" + "Your numbers in column: ");
+        for (int i = 0; i < randomNumbers.length; i++){
+            randomNumbers[i] = random.nextInt(1000);
+            System.out.println(randomNumbers[i]);
+        }
+	//генерируем случайные числа и тут же выводим их в строку
+        System.out.println("\n" + "Your numbers in line: ");
+        for (int i = 0; i < randomNumbers.length; i++){
+            System.out.print(randomNumbers[i] + ", ");
+        }
+    }
+}

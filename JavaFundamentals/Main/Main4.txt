@@ -1,0 +1,28 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        // 4.Ввести целые числа как аргументы командной строки, подсчитать их сумму (произведение) и вывести результат на консоль.
+        Scanner scanner = new Scanner(System.in);
+        int sum;
+        int multiply;
+
+        sum = 0;
+        multiply = 1;
+
+        System.out.println("Print your numbers (no more 50 and if you ended, please print any symbol): ");
+        //получаем числа с консоли и складываем(умножаем) их друг на друга
+        for (int i = 0; i < 50; i++){
+            //проверяем что введённое значение есть число типа integer
+            if (scanner.hasNextInt()) {
+                sum = sum + scanner.nextInt();
+                multiply = multiply * scanner.nextInt();
+            } else {    //если ввели не число integer, то выходим из цикла записи и подсчёта чисел
+                break;
+            }
+        }
+        //выводим конечный результат
+        System.out.println("\n" + "Your sum: " + sum);
+        System.out.println("\n" + "Your multiply: " + multiply);
+    }
+}
