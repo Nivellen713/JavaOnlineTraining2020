@@ -1,0 +1,115 @@
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+        /*
+        Задание. Ввести n чисел с консоли.
+        1.Найти самое короткое и самое длинное число. Вывести найденные числа и их длину.
+        2.Вывести числа в порядке возрастания (убывания) значений их длины.
+        3.Вывести на консоль те числа, длина которых меньше (больше) средней длины по всем числам, а также длину.
+        4.Найти число, в котором количество различных цифр минимально.
+            Если таких чисел несколько, найти первое из них.
+        5.Найти количество чисел, содержащих только четные цифры, а среди оставшихся — количество чисел
+            с равным числом четных и нечетных цифр.
+        6.Найти число, цифры в котором идут в строгом порядке возрастания.
+            Если таких чисел несколько, найти первое из них.
+        7.Найти число, состоящее только из различных цифр. Если таких чисел несколько, найти первое из них.
+         */
+        Scanner scanner = new Scanner(System.in);
+        int n;
+        int remLen; //переменная для сортировки, для запоминания длины элемента массива
+        int remNum; //переменная для сортировки, для запоминания длины элемента массива
+        int k;  //счётчик длины
+        int shortLength;    //запоминаем наименьшую длину
+        int longLength;     //запоминаем наибольшую длину
+        int shortIndex;     //запоминаем индекс наименьшей длины
+        int longIndex;      //запоминаем индекс наибольшей длины
+        double arrayElement;    //перемення для запоминания элемента массива (чтобы лишний раз не менять сам массив)
+        int averageLength;
+
+        shortLength = 10;
+        longLength = 0;
+        longIndex = 0;
+        shortIndex = 0;
+        averageLength = 0;
+
+        //узнаём количество чисел для формирования массива
+        System.out.print("Print amount of your numbers: ");
+        n = scanner.nextInt();
+        int[][] numbers = new int[n][2];
+
+        // считываем вводимые числа
+        System.out.println("Print your numbers: ");
+        for (int i = 0; i < numbers.length; i++){
+            numbers[i][0] = scanner.nextInt();
+        }
+
+        //узнаём длину чисел и заодно ищем среднюю длин чисел
+        for (int i = 0; i < numbers.length; i++){
+            k = 0;
+            arrayElement = numbers[i][0];
+            do {
+                arrayElement = arrayElement / 10;
+                k++;
+                numbers[i][1] = k;
+            } while (arrayElement > 1.0);
+            averageLength = averageLength + k;
+        }
+        averageLength = averageLength/n;
+
+        //сортировка чисел по возрастанию их длин
+        for (int i = 0; i < numbers.length; i++){
+            for (int j = 0; j < numbers.length; j++){
+                if (numbers[i][1] < numbers[j][1]){
+                    remNum = numbers[i][0];
+                    remLen = numbers[i][1];
+                    numbers[i][1] = numbers[j][1];
+                    numbers[i][0] = numbers[j][0];
+                    numbers[j][1] = remLen;
+                    numbers[j][0] = remNum;
+                }
+            }
+        }
+        
+        //ищем количество различных цифр в числах
+        for(int i = 0; i < numbers.length; i++){
+            
+        }
+
+        //ищем максимальную и минимальную длину
+        for(int i = 0; i < numbers.length; i++){
+            if(numbers[i][1] > longLength){
+                longLength = numbers[i][1];
+                longIndex = i;
+            } else if (numbers[i][1] < shortLength){
+                shortLength = numbers[i][1];
+                shortIndex = i;
+            } else {
+                continue;
+            }
+        }
+
+        //вывод всех чисел и их длин
+        for (int i = 0; i < numbers.length; i++){
+            System.out.println();
+            for (int j = 0; j < 2; j++){
+                System.out.print(numbers[i][j] + "\t\t");
+            }
+        }
+
+        //вывод самого короткого и длинного числа и их длин
+        System.out.println("\n\n");
+        System.out.print("Long number: " + numbers[longIndex][0] + "\tand its length: " + numbers[longIndex][1]);
+        System.out.print("\nShort number: " + numbers[shortIndex][0] + "\tand its length: " + numbers[shortIndex][1]);
+
+        System.out.println("\nAverage length: " + averageLength);
+
+        //выводим все числа, чья длина больше средней
+        for (int i = 0; i < numbers.length; i++){
+            if(numbers[i][1] > averageLength){
+                System.out.println(numbers[i][0] + '\t' + numbers[i][1]);
+            }
+        }
+    }
+}
