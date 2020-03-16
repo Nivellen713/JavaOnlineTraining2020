@@ -1,0 +1,8 @@
+package com.training.enum_less;
+public class Runner {
+
+    public static void main(String[] args) {
+        Book author = Book.valueOf("JULE_VERNE");
+        System.out.println(author);
+    }
+}
