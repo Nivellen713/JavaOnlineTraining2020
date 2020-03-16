@@ -1,0 +1,27 @@
+package com.training.enum_less;
+
+public enum Book {
+    JULE_VERNE(1,"JULE_VERNE", "AST", 1970, 355, 7.75, "hard"),
+    ERICH_REMARK(2,"ERICH_REMARK", "OST", 1973, 248, 10.10, "soft"),
+    GEORGE_RR_MARTIN(3,"GEORGE_RR_MARTIN", "POST", 1984, 340, 9.80, "hard"),
+    JOHN_RR_TOLKIEN(4,"JOHN_RR_TOLKIEN", "LOST", 1992, 320, 9.35, "hard");
+    private int id;
+    private String author;
+    private String publishingHouse;
+    private int year;
+    private int pages;
+    private double price;
+    private String bindingType;
+    Book (int id, String author, String publishingHouse, int year, int pages, double price, String bindingType){
+        this.id = id;
+        this.author = author;
+        this.publishingHouse = publishingHouse;
+        this.year = year;
+        this.pages = pages;
+        this.price = price;
+        this.bindingType = bindingType;
+        System.out.println("id: " + this.id + ", author: " + this.author + ", publishing house: " + this.publishingHouse);
+        System.out.println("year: " + this.year + ", pages: " + this.pages + ", price: " + this.pages + ", binding type: " + this.bindingType);
+        System.out.println();
+    }
+}
