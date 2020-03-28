@@ -1,131 +1,130 @@
+import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
         /*
-        Задание. Ввести n чисел с консоли.
-        1.Найти самое короткое и самое длинное число. Вывести найденные числа и их длину.
-        2.Вывести числа в порядке возрастания (убывания) значений их длины.
-        3.Вывести на консоль те числа, длина которых меньше (больше) средней длины по всем числам, а также длину.
-        4.Найти число, в котором количество различных цифр минимально.
-            Если таких чисел несколько, найти первое из них.
-        5.Найти количество чисел, содержащих только четные цифры, а среди оставшихся — количество чисел
-            с равным числом четных и нечетных цифр.
-        6.Найти число, цифры в котором идут в строгом порядке возрастания.
-            Если таких чисел несколько, найти первое из них.
-        7.Найти число, состоящее только из различных цифр. Если таких чисел несколько, найти первое из них.
+Задание. Ввести с консоли sizeOfMatrix - размерность матрицы a [sizeOfMatrix] [sizeOfMatrix]. Задать значения элементов матрицы в
+интервале значений от -M до M с помощью генератора случайных чисел (класс Random).
+1. Упорядочить строки (столбцы) матрицы в порядке возрастания значений элементов column-го столбца (строки).
+4. Найти максимальный элемент в матрице и удалить из матрицы все строки и столбцы, его содержащие
          */
+
+        Random random = new Random();
         Scanner scanner = new Scanner(System.in);
-        int n;
-        int remLen; //переменная для сортировки, для запоминания длины элемента массива
-        int remNum; //переменная для сортировки, для запоминания длины элемента массива
-        int k;  //счётчик длины
-        int shortLength;    //запоминаем наименьшую длину
-        int longLength;     //запоминаем наибольшую длину
-        int shortIndex;     //запоминаем индекс наименьшей длины
-        int longIndex;      //запоминаем индекс наибольшей длины
-        double arrayElement;    //перемення для запоминания элемента массива (чтобы лишний раз не менять сам массив)
-        int averageLength;
-        int a, b;
 
-        shortLength = 10;
-        longLength = 0;
-        longIndex = 0;
-        shortIndex = 0;
-        averageLength = 0;
-        a = 0;
-        b = 0;
+        int sizeOfMatrix;
+        int maximumGeneratedNumber;
+        int columnToSort;
+        int maximumElementOfMatrix;
+        int rememberElementOfArray;
+        int rememberIndexOfLine;
+        int rememberIndexOfColumn;
+        int ii; //Да простят меня боги за эти имена
+        int jj;
+        int k;
 
-        //узнаём количество чисел для формирования массива
-        System.out.print("Print amount of your numbers: ");
-        n = scanner.nextInt();
-        int[][] numbers = new int[n][3];
+        System.out.print("Please print size of matrix: ");
+        sizeOfMatrix = scanner.nextInt();
 
-        // считываем вводимые числа
-        System.out.println("Print your numbers: ");
-        for (int i = 0; i < numbers.length; i++){
-            numbers[i][0] = scanner.nextInt();
-        }
+        maximumGeneratedNumber = 100;
+        columnToSort = 0;
+        maximumElementOfMatrix = 0;
+        rememberIndexOfLine = 0;
+        rememberIndexOfColumn = 0;
+        ii = 0;
+        jj = 0;
+        k = 0;
 
-        //узнаём длину чисел и заодно ищем среднюю длину всех чисел
-        for (int i = 0; i < numbers.length; i++){
-            k = 0;
-            arrayElement = numbers[i][0];
-            do {
-                arrayElement = arrayElement / 10;
-                k++;
-                numbers[i][1] = k;
-            } while (arrayElement > 1.0);
-            averageLength = averageLength + k;
-        }
-        averageLength = averageLength/n;
+        int[][] matrix = new int[sizeOfMatrix][sizeOfMatrix];
+        int[][] matrixWithoutMaximum = new int[sizeOfMatrix - 1][sizeOfMatrix - 1];
 
-        //сортировка чисел по возрастанию их длин
-        for (int i = 0; i < numbers.length; i++){
-            for (int j = 0; j < numbers.length; j++){
-                if (numbers[i][1] < numbers[j][1]){
-                    remNum = numbers[i][0];
-                    remLen = numbers[i][1];
-                    numbers[i][1] = numbers[j][1];
-                    numbers[i][0] = numbers[j][0];
-                    numbers[j][1] = remLen;
-                    numbers[j][0] = remNum;
-                }
+        System.out.println("Randomly generated matrix of size " +  + sizeOfMatrix + " by " + sizeOfMatrix + ':');
+        for (int i = 0; i < sizeOfMatrix; i++) {
+            for (int j = 0; j < sizeOfMatrix; j++) {
+                matrix[i][j] = random.nextInt(maximumGeneratedNumber);
             }
         }
 
-        //ищем количество различных цифр в числах
-        for(int i = 0; i < numbers.length; i++){
-            k = 0;
-            a = numbers[i][0];
-            b = numbers[i][0] / 10;
-            for (int j = 0; j <= numbers[i][1]; j++) {
-                a = a % 10; //берём первое число
-                b = b % 10; //берём второе число
-                if (a != b) {
-                    k++;
-                }
-            }
-            numbers[i][2] = k;
-        }
-
-        //ищем максимальную и минимальную длину
-        for(int i = 0; i < numbers.length; i++){
-            if(numbers[i][1] > longLength){
-                longLength = numbers[i][1];
-                longIndex = i;
-            } else if (numbers[i][1] < shortLength){
-                shortLength = numbers[i][1];
-                shortIndex = i;
-            } else {
-                continue;
-            }
-        }
-
-        //вывод всех чисел и их длин
-        for (int i = 0; i < numbers.length; i++){
+        for (int i = 0; i < sizeOfMatrix; i++) {
             System.out.println();
-            for (int j = 0; j < 3; j++){
-                System.out.print(numbers[i][j] + "\t\t");
+            for (int j = 0; j < sizeOfMatrix; j++) {
+                System.out.print(matrix[i][j] + "\t");
             }
         }
 
-        //вывод самого короткого и длинного числа и их длин
-        System.out.println("\n\n");
-        System.out.print("Long number: " + numbers[longIndex][0] + "\tand its length: " + numbers[longIndex][1]);
-        System.out.print("\nShort number: " + numbers[shortIndex][0] + "\tand its length: " + numbers[shortIndex][1]);
+        // 1. Упорядочить строки матрицы в порядке возрастания значений элементов columnToSort-го столбца.
 
-        System.out.println("\nAverage length: " + averageLength);
-
-        //выводим все числа, чья длина больше средней
-        for (int i = 0; i < numbers.length; i++){
-            if(numbers[i][1] > averageLength){
-                System.out.println(numbers[i][0] + '\t' + numbers[i][1]);
+        for (int i = 0; i < sizeOfMatrix - 1; i++) {
+            if (matrix[i][columnToSort] > matrix[i + 1][columnToSort]) {
+                for (int j = 0; j < sizeOfMatrix; j++) {
+                    rememberElementOfArray = matrix[i][j];
+                    matrix[i][j] = matrix[i + 1][j];
+                    matrix[i + 1][j] = rememberElementOfArray;
+                }
             }
         }
 
-        System.out.println("a: " + a + "\nb: " + b);
+        // 4. Найти максимальный элемент в матрице и удалить из матрицы все строки и столбцы, его содержащие
 
+        for (int i = 0; i < sizeOfMatrix; i++) {
+            for (int j = 0; j < sizeOfMatrix; j++) {
+                if (matrix[i][j] > maximumElementOfMatrix) {
+                    maximumElementOfMatrix = matrix[i][j];
+                    rememberIndexOfLine = i;
+                    rememberIndexOfColumn = j;
+                }
+            }
+        }
+
+        for (int i = 0; i < sizeOfMatrix; i++) {
+            jj = 0;
+            if (ii == sizeOfMatrix - 1) {
+                ii--;
+            }
+            for (int j = 0; j < sizeOfMatrix; j++) {
+                if (i != rememberIndexOfLine && j != rememberIndexOfColumn) {
+                    matrixWithoutMaximum[ii][jj] = matrix[i][j];
+                    jj++;
+                }
+            }
+            ii++;
+            // цикл if (k < 2) и коэффициент k нужны для того чтобы проверка if (rememberIndexOfLine == 0)
+            // сработала всего один раз, иначе будут до конца обоих циклов for перезаписываться
+            // элементы строки с индексом 0 массива matrixWithoutMaximum, а остальные строки будут нулевыми
+            // также это нужно только для неотсортированного по заданию 1 массива
+            if (k < 2) {
+                if (rememberIndexOfLine == 0) {
+                    ii--;
+                    k = 2;
+                }
+            }
+        }
+
+
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println("Matrix is sorted in ascending order of columnToSort element to lines: ");
+
+        for (int i = 0; i < sizeOfMatrix; i++) {
+            System.out.println();
+            for (int j = 0; j < sizeOfMatrix; j++) {
+                System.out.print(matrix[i][j] + "\t");
+            }
+        }
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println("Maximum element of matrix is " + maximumElementOfMatrix);
+        System.out.println("Matrix without column and line containing maximum element: ");
+
+        for (int i = 0; i < sizeOfMatrix - 1; i++) {
+            System.out.println();
+            for (int j = 0; j < sizeOfMatrix - 1; j++) {
+                System.out.print(matrixWithoutMaximum[i][j] + "\t");
+            }
+        }
     }
 }
