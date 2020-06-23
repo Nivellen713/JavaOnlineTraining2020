@@ -1,0 +1,33 @@
+package training.collections.optional.taskone;
+
+import java.io.*;
+import java.util.*;
+
+public class Runner {
+    public static void main(String[] args) {
+        //Ввести строки из файла, записать в список. Вывести строки в файл в обратном порядке.
+        List <String> list = new ArrayList<String>(){};
+
+        try {
+            OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream("C://Users//anton//Desktop//Works//Java//Training2020//" +
+                    "JavaOnlineTraining2020//Collections//Optional//TaskOneProcess.txt", true));
+            Scanner scanner = new Scanner(new File(("C://Users//anton//Desktop//Works//Java//Training2020//" +
+                    "JavaOnlineTraining2020//Collections//Optional//TaskOneProcess.txt")));
+
+            while(scanner.hasNext()) {
+                list.add(scanner.nextLine());
+            }
+            scanner.close();
+            Collections.reverse(list);
+            writer.write("\nReverse strings:\n");
+            for(int i = 0; i < list.size(); i++) {
+                writer.write(list.get(i) + "\n");
+                System.out.println(list.get(i));
+            }
+            writer.close();
+            } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+        System.out.println(list);
+    }
+}
